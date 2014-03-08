@@ -14,6 +14,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
 #include <fstream>
 
 using namespace std;
@@ -56,12 +57,16 @@ private:
     //here is the matrix that will hold the values of the spreadsheet
     vector <vector<string> > values; 
     
-    //Returns a string properly processed and ready to be put into the above vector
+    //Returns a string properly processed and ready to be put into the file
     string processStringForWrite(string line);
+    
+    //RProcess a line and adds each element of the line to the vector
+    void processStringForRead(string line);
     
     //Given a certain line, returns a boolean indicating wether the line is filled
     //or not
     bool isLineFull(int linNum);
+    
     
     
     

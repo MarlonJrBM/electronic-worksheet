@@ -48,8 +48,15 @@ int Persistence:: getMaxNumCol()
 void Persistence::readFile(string fileName)
 {
     ifstream file(fileName.c_str());
+    string currLine, currWord;
     
     
+    
+    while (getline(file,currLine))
+    {
+       
+        processStringForRead(currLine);
+    }
     
     
     
@@ -98,6 +105,53 @@ string Persistence::processStringForWrite(string line)
     return result;
 }
 
+void Persistence::processStringForRead(string line)
+{
+    
+    //TODO - Two quotes together should be parsed as a quotation mark, not as
+    // the end or beginning a string
+    
+    string word;
+    int foundPos;
+    bool isDone = false;
+    
+    while (!isDone)
+    {
+    
+        if (line[0]=='\"')
+        //If the word starts with double quotes, then we must find
+        //the next double quotes followed by a comma
+        {     
+                foundPos = line.find("\",", 1);
+                word = line.substr(1, foundPos-1 ); //extracts the word
+                if (foundPos!=line.length()-2)
+                //Here we are checking to see if this is the last word in the line.
+                //If it is, time to stop the while loop.
+                //This is a workaround to avoid an exception being thrown and caught. 
+                //There probably is a better way to do it
+                line = line.substr(foundPos+2 ); //Removes the current word from the string
+                //and continues to process it
+                else
+                isDone = true;
+        }
+        else
+                //No quotes around the word. In this case, just search for the next comma
+        {
+                foundPos = line.find(',');
+                word = line.substr(0,foundPos);
+                if (foundPos!=line.length()-1)
+                //Same workaround as above
+                line = line.substr(foundPos+1);
+                else
+                isDone = true;
+        }
+    
+        cout << "Element being added: " << word << endl;
+        addValue(word); //Finally adds the value to the matrix
+    }
+    
+}
+
 void Persistence::addValue(string value)
 {
     bool foundPos = false;
@@ -120,8 +174,7 @@ void Persistence::addValue(string value)
             //this line is not full, push the element to the vector
         {
             //If this is the first element of the new line, then we must
-            //increment the count variable. (This is a workaround for a potential
-            //hazard for this application)
+            //increment the size of the vector (which represent the lines)
             if (getNumCol(ii)==0) 
                 numLines++;
             values[ii].push_back(value);

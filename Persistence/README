@@ -1,0 +1,26 @@
+Este projeto foi feito na IDE NetBeans. Ele possui um Makefile
+ gerado pela IDE, mas não contém nenhuma dependência, logo 
+ você deve conseguir compilá-lo sem problemas apenas dando um
+ "make".
+
+Repare que o modelo de .csv é um SEM HEADER, onde os valores
+de cada coluna são separados por uma vírgula, e uma quebra de
+ inha significa uma nova linha da matriz.
+
+Ter um .csv COM HEADER é fundamental quando estamos tratando
+ de tabelas mais complexas, por exemplo, quando queremos 
+ indicar tanto as células com fórmulas calculadas quanto com
+  valores brutos. Atualmente, a classe Persistence não suporta
+   isso, mas para adicionar essa funcionalidade não dará muito
+    trabalho. O Header nada mais é que um indicador no início
+    do arquivo que informa que o arquivo não é um .csv simples
+
+Finalmente, os métodos da classe Persistence que nós de fato
+ precisamos são:
+- readFile(string fileName)
+- writeFile(string fileName)
+
+Fiz diversos testes nele e eles funcionam! Provavelmente 
+teremos que refatorar algumas coisas para encaixar no QT, mas
+ acredito que a maior parte possa ser aproveitada!
+
