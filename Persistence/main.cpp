@@ -14,12 +14,13 @@
  * exception of type const char will be thrown
  */
 int main(int argc, char** argv) {
-    Persistence matrix(3,4), matrix2(4,3); //default is 10x10
+    Persistence matrix(5,4), matrix2(4,5); //default is 10x10
     string fileName = "outputTest.csv";
     string values[] = {"Hello World", "I am the Walrus", "", "Love, Hate, Love"};
     string again[] = {"Let it Bleed", "You Can't Always Get What You Want", "", "Monkey Man"};
     cout << "Creating Matrix. Initial capacity: " << endl;
     cout << matrix.getMaxNumLine() << 'x' << matrix.getMaxNumCol() <<  endl;
+    cout << matrix(1,1) << endl;
     
     cout << "Now Adding Values..." << endl;
     for (int ii=0; ii<4; ii++)
@@ -27,7 +28,7 @@ int main(int argc, char** argv) {
         matrix.addValue(values[ii]);
         matrix.addValue(again[ii]);
         matrix.addValue(values[ii]);
-        //matrix.addValue(again[ii]);
+        matrix.addValue(again[ii]);
     }
     cout << "Values Added to Vector" << endl;
     cout << "Number of lines filled: " << matrix.getNumLine() << endl;
@@ -40,6 +41,24 @@ int main(int argc, char** argv) {
     cout << "Now Reading Values from the file 'outputTest.csv'" << endl;
     matrix2.readFile(fileName);
     cout << "File was read" << endl;
+    
+    cout << "Trying to access value at pos [2,3]:" << endl;
+    cout << matrix(2,3) << endl;
+    cout << "It worked!" << endl;
+    
+    cout << "Trying to set value at pos [2,3]:" << endl;
+    matrix(2,3) = "Let it bleed";
+    cout << matrix(2,3) << endl;
+    cout << "It worked!" << endl;
+    
+    cout << "Trying to access value at pos [3,3]" << endl;
+    cout << matrix(3,3) << endl;
+    cout << "It worked!" << endl;
+    
+    cout << "Trying to set value at pos [3,3]:" << endl;
+    matrix(3,3) = "Midnight Rambler";
+    cout << matrix(3,3) << endl;
+    cout << "It worked!" << endl;
     
     return 0;
 }

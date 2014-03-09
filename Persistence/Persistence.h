@@ -35,15 +35,18 @@ public:
     int getMaxNumCol();
     
     //Writes the matrix to the file named fileName, using the CSV convention
-    void writeFile(string fileName);
+    void writeFile(string fileName, bool header=false);
     
     //Reads the matrix from the fileName to the values vector, using the CSV convention
-    void readFile(string fileName);
+    void readFile(string fileName, bool header=false);
     
     
     //Add value to the end of the matrix 
     //(basically does a push_back and automatically changes the line)
     void addValue(string value);
+    
+    //Access a value on the matrix
+    string& operator()(int line, int column);
     
 private:
     
@@ -51,7 +54,11 @@ private:
     //with the vector's .size() method and this is the only workaround I've been
     //able to find. Currently, the lack of this variable doesn't break the application
     //but it may be necessary in the future
-    int numLines; 
+    int numLines;
+    
+    //The reason for this variable is the same as above. It indicates the number of
+    //elements in a given line
+    vector <int> numCols;
 
     
     //here is the matrix that will hold the values of the spreadsheet

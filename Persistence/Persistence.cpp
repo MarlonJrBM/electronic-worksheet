@@ -8,13 +8,15 @@
 #include "Persistence.h"
 
 Persistence::Persistence(int numLin, int numCol) {
-    values.reserve(numLin); //Allocates lines of the matrix
-    for (int ii=0;ii<numLin;ii++)
-        //Allocates columns of the matrix
-    {
-        values[ii].reserve(numCol);
-    }
+    vector<string> v(numCol,"");
+    values.resize(numLin,v); //Allocates lines of the matrix
+//    for (int ii=0;ii<numLin;ii++)
+//        //Allocates columns of the matrix
+//    {
+//        values[ii].resize(numCol, "");
+//    }
     numLines = 0;
+    numCols.resize(numLin, 0);
 }
 
 Persistence::Persistence(const Persistence& orig) {
@@ -30,32 +32,49 @@ int Persistence:: getNumLine()
 
 int Persistence:: getNumCol(int numLin)
 {
-    return values[numLin].size();
+    return numCols[numLin];
 }
 
 int Persistence:: getMaxNumLine()
 {
-    return values.capacity();
+    return values.size();
     
 }
 
 int Persistence:: getMaxNumCol()
 {
-    return values[0].capacity();
+    return values[0].size();
     
 }
 
-void Persistence::readFile(string fileName)
+void Persistence::readFile(string fileName, bool header)
+
 {
     ifstream file(fileName.c_str());
     string currLine, currWord;
     
-    
-    
-    while (getline(file,currLine))
+    if (!header)
     {
-       
-        processStringForRead(currLine);
+        
+
+
+
+        while (getline(file,currLine))
+            
+        {
+
+            processStringForRead(currLine);
+            //TODO- Refactor this method and the ones it calls. 
+            //This is doing a lot of repeated work. 
+            //Perhaps adding a count variable to keep track of the
+            //current line will avoid this unnecessary load of work
+        }
+    
+    }
+    else
+    {
+        //TODO - Implement logic for file with header (indicating a complex table)
+        
     }
     
     
@@ -64,19 +83,29 @@ void Persistence::readFile(string fileName)
     
 }
 
-void Persistence::writeFile(string fileName)
+void Persistence::writeFile(string fileName, bool header)
 {
+    
     ofstream file(fileName.c_str());
     string currWord;
     
-    for (int ii=0;ii<getNumLine();ii++)
+    if (!header)
     {
-        for (int jj=0;jj<getNumCol(ii);jj++)
+    
+        for (int ii=0;ii<getMaxNumLine();ii++)
         {
-            currWord = values[ii][jj];
-            file << processStringForWrite(currWord) << ',';
+            for (int jj=0;jj<getMaxNumCol();jj++)
+            {
+                currWord = values[ii][jj];
+                file << processStringForWrite(currWord) << ',';
+            }
+            if (ii<getMaxNumLine()-1)file << '\n'; //starts a new line in the output file,
+            //if this is not the last line
         }
-        file << '\n'; //starts a new line in the output file
+    }
+    else
+    {
+        //TODO - Implement logic for file with header (indicating a complex table)
     }
     
     
@@ -155,7 +184,7 @@ void Persistence::processStringForRead(string line)
 void Persistence::addValue(string value)
 {
     bool foundPos = false;
-    int ii=0;
+    int ii=0, jj;
     while (!foundPos)
         //iterates through the lines to find if there is enough room
     {
@@ -173,11 +202,15 @@ void Persistence::addValue(string value)
         else
             //this line is not full, push the element to the vector
         {
+            jj = getNumCol(ii); 
+            //gets reference to the number of elements in the current line
             //If this is the first element of the new line, then we must
             //increment the size of the vector (which represent the lines)
-            if (getNumCol(ii)==0) 
+            if (jj==0) 
                 numLines++;
-            values[ii].push_back(value);
+            values[ii][jj] = value ;
+            numCols[ii]++; //we have a new element in the line, so the variable
+            //must be updated
             foundPos = true;
         }
     }
@@ -188,4 +221,10 @@ bool Persistence::isLineFull(int linNum)
     //The number of elements in a line should never be greater than the 
     //Number of Columns allocated. Just putting this as an insanity check!
     return (getNumCol(linNum) >= getMaxNumCol());
+}
+
+
+string& Persistence::operator ()(int line, int column)
+{
+    return values[line][column];
 }
