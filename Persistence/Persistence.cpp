@@ -216,6 +216,63 @@ void Persistence::addValue(string value)
     }
 }
 
+
+void Persistence::growMatrix(int d_i, int d_j)
+{
+    vector<string> newLine(getMaxNumCol() + d_j,"");
+    
+    if (d_j>0)
+    {
+    
+    for (int ii=0;ii<getMaxNumLine();ii++)
+        //adds more columns to the old lines
+    {
+        for (int jj=0;jj<d_j;jj++)
+        {
+            values[ii].push_back("");
+            //numCols[ii]++;      
+        }
+    }
+    }
+    
+    for (int ii=0;ii<d_i;ii++)
+        //adds new lines (with right number of columns)
+    {
+        values.push_back(newLine);
+        
+    }
+          
+}
+
+void Persistence::shrinkMatrix(int d_i, int d_j)
+{
+    int numCol = getMaxNumCol();
+    
+    if (d_j>0)
+        //removes the columns
+    {
+        for (int ii=0;ii<getMaxNumLine();ii++)
+            
+        {
+            values[ii].resize(numCol-d_j);
+            numCols[ii]-=d_j;
+        }
+    }
+    
+    if (d_i>0) 
+    {
+        values.resize(getMaxNumLine()-d_i);
+        numLines-=d_i;
+    }
+    
+    
+    
+    
+    
+}
+
+
+
 bool Persistence::isLineFull(int linNum)
 {
     //The number of elements in a line should never be greater than the 
@@ -228,3 +285,4 @@ string& Persistence::operator ()(int line, int column)
 {
     return values[line][column];
 }
+

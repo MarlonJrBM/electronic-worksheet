@@ -3,6 +3,8 @@ precisamos são:
 - readFile(string fileName)
 - writeFile(string fileName)
 - operator()(int line, int column)
+- growMatrix(int d_i, int d_j)
+- shrinkMatrix(int d_i, int d_j)
 
 O primeiro lê de um arquivo .csv para a nossa matriz. 
 O segundo lê da nossa matriz para o arquivo .csv. 

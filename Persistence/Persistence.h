@@ -40,6 +40,11 @@ public:
     //Reads the matrix from the fileName to the values vector, using the CSV convention
     void readFile(string fileName, bool header=false);
     
+    //Increases the number of lines by d_i and the number of columns by d_j
+    void growMatrix(int d_i, int d_j);
+     
+    //Decreases the number of lines by d_i and the number of columns by d_j
+    void shrinkMatrix(int d_i, int d_j);
     
     //Add value to the end of the matrix 
     //(basically does a push_back and automatically changes the line)
