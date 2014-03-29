@@ -5,7 +5,7 @@
  * Created on March 7, 2014, 5:13 PM
  */
 
-#include "Persistence.h"
+#include "Matriz.h"
 
 
 
@@ -101,7 +101,8 @@ int main(int argc, char** argv) {
     cout << matriz3.getMaxNumCol() << endl;
 
     
-    
+    Matriz mm(5,6);
+   
     
     return 0;
 }

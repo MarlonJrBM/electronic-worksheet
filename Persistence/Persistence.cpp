@@ -17,6 +17,8 @@ Persistence::Persistence(int numLin, int numCol) {
 //    }
     numLines = 0;
     numCols.resize(numLin, 0);
+    string s = "Construtor A " ;
+    cout << s << numLin << ' ' << ' ' <<  numCol << endl;
 }
 
 Persistence::Persistence(const Persistence& orig) {
@@ -26,6 +28,8 @@ Persistence::Persistence(const Persistence& orig) {
 }
 
 Persistence::~Persistence() {
+    string s;
+    cout << "Destrutor A" << endl;
 }
 
 int Persistence:: getNumLine()
