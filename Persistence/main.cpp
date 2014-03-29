@@ -14,7 +14,7 @@
  * exception of type const char will be thrown
  */
 int main(int argc, char** argv) {
-    Persistence matrix(5,4), matrix2(20,20); //default is 10x10
+    Matriz matrix(5,4), matrix2(20,20); //default is 10x10
     string fileName = "outputTest.csv";
     string values[] = {"Hello World", "I am the Walrus", "", "Love, Hate, Love"};
     string again[] = {"Let it Bleed", "You Can't Always Get What You Want", "", "Monkey Man"};
@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
    //-----------------------------------------------------------------------
    //---------- getSubMatrix ----------------------------------------------
    
-    Persistence matriz3(matrix.getSubMatrix(1,2,3,0));
+    Matriz matriz3(matrix.getSubMatrix(1,2,3,0));
     matriz3(0,0) = "VSF";
     cout << matrix(1,2) << endl;
     cout << matriz3(0,0) << endl;

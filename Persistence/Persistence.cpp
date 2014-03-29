@@ -287,24 +287,7 @@ void swap (int& a, int& b)
 }
 
 
-Persistence Persistence::getSubMatrix(int i_0, int j_0, int i, int j)
-{
-    if (i<i_0) swap(i, i_0);
-    if (j<j_0) swap(j, j_0);
-    
-    Persistence subMatrix(i-i_0 + 1, j-j_0 + 1);
-    
-    for (int ii=i_0;ii<=i;ii++)
-    {
-        for (int jj=j_0;jj<=j;jj++)
-        {
-            subMatrix.addValue(values[ii][jj]);
-        }
-    }
-    
-    return subMatrix;
-    
-}
+
 
 
 
