@@ -53,6 +53,9 @@ public:
     //Access a value on the matrix
     string& operator()(int line, int column);
     
+    //returns a matrix that begins at cell (i_0, j_0) and ends at cell (i,j)
+    Persistence getSubMatrix(int i_0, int j_0, int i, int j);
+    
 private:
     
     //The only reason I'm introducing this value is because there's a strange bug

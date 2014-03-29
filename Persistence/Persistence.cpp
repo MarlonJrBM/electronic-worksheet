@@ -20,6 +20,9 @@ Persistence::Persistence(int numLin, int numCol) {
 }
 
 Persistence::Persistence(const Persistence& orig) {
+    numLines = orig.numLines;
+    numCols = orig.numCols;
+    values = orig.values;
 }
 
 Persistence::~Persistence() {
@@ -272,6 +275,34 @@ void Persistence::shrinkMatrix(int d_i, int d_j)
 }
 
 
+void swap (int& a, int& b)
+{
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+
+Persistence Persistence::getSubMatrix(int i_0, int j_0, int i, int j)
+{
+    if (i<i_0) swap(i, i_0);
+    if (j<j_0) swap(j, j_0);
+    
+    Persistence subMatrix(i-i_0 + 1, j-j_0 + 1);
+    
+    for (int ii=i_0;ii<=i;ii++)
+    {
+        for (int jj=j_0;jj<=j;jj++)
+        {
+            subMatrix.addValue(values[ii][jj]);
+        }
+    }
+    
+    return subMatrix;
+    
+}
+
+
 
 bool Persistence::isLineFull(int linNum)
 {
@@ -285,4 +316,5 @@ string& Persistence::operator ()(int line, int column)
 {
     return values[line][column];
 }
+
 

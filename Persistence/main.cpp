@@ -90,6 +90,17 @@ int main(int argc, char** argv) {
     cout << "Number of lines afterwards " << matrix.getMaxNumLine() << endl;
     cout << "Number of columns afterwards " << matrix.getMaxNumCol() << endl;
     
+   //-----------------------------------------------------------------------
+   //---------- getSubMatrix ----------------------------------------------
+   
+    Persistence matriz3(matrix.getSubMatrix(1,2,3,0));
+    matriz3(0,0) = "VSF";
+    cout << matrix(1,2) << endl;
+    cout << matriz3(0,0) << endl;
+    cout << matriz3.getMaxNumLine() << endl;
+    cout << matriz3.getMaxNumCol() << endl;
+
+    
     
     
     return 0;
